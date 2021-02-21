@@ -8,8 +8,8 @@ var canvas;
 var canvasContext;
 var ballX = 50;
 var ballY = 50;
-var ballSpeedX = 10;
-var ballSpeedY = 10;
+var ballSpeedX = 20;
+var ballSpeedY = 20;
 
 var p1Score = 0;
 var p2Score = 0;
@@ -19,7 +19,7 @@ var p4Score = 0;
 var p1y = 250; // position of p1 starting
 var p2y = 250;
 var p3x = 100;
-var p4x = 200;
+var p4x = 400;
 const PADDLE_HEIGHT = 100;
 const PADDLE_THICK = 10;
 const WINNING_SCORE = 3;
@@ -107,8 +107,6 @@ function drawEverything() {
 	colorRect(p3x, 0, PADDLE_HEIGHT, PADDLE_THICK, 'white')
 	// bottom player paddle
 	colorRect(p4x, canvas.height - PADDLE_THICK, PADDLE_HEIGHT, PADDLE_THICK, 'white')
-
-
 	
 	// ball size
 	colorCircle(ballX, ballY, 20, 'pink')
@@ -158,10 +156,12 @@ function move(){
 
 	ballX += ballSpeedX;
 	ballY += ballSpeedY;
+	console.log('y speed 1 = ' + ballSpeedY);
+
 
 	if (ballX > canvas.width) { // passes right side
 		if (ballY > p2y && ballY < p2y+PADDLE_HEIGHT){
-			p1Score += 1; // must be before ball reset 
+			p2Score += 1; // must be before ball reset 
 			ballReset();
 		}
 		else {
@@ -173,7 +173,7 @@ function move(){
 
 	if (ballX < 0){ //passes left side
 		if (ballY > p1y && ballY < p1y+PADDLE_HEIGHT){
-			p2Score +=1;
+			p1Score +=1;
 			ballReset();
 		}
 		else {
@@ -190,7 +190,8 @@ function move(){
 			ballReset();
 		} 
 		else {
-			ballSpeedY -= ballSpeedY;
+			ballSpeedY = -ballSpeedY;
+			console.log('y speed = ' + ballSpeedY);
 		}	
 	}
 
@@ -201,7 +202,7 @@ function move(){
 			ballReset();
 		}
 		else {
-			ballSpeedY -= ballSpeedY;
+			ballSpeedY  = -ballSpeedY;
 		}
 	}
 }
